@@ -10,6 +10,3 @@ $variable1 = " PHP 5";
     echo "<title>Una pagina llena de scripts PHP</title>";
     ?>
 </head>
-<body>
-</body>
-</html>
