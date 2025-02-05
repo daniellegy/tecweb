@@ -98,7 +98,6 @@
     <?php
     echo "<h3>Valores de las variables usando \$GLOBALS:</h3>";
 
-    // Mostrar valores usando $GLOBALS
     echo "<p>Valor de \$a:</p>";
     echo "<pre>\$a = " . htmlspecialchars(var_export($GLOBALS['a'], true)) . " (" . gettype($GLOBALS['a']) . ")</pre>";
 
@@ -111,6 +110,17 @@
     echo "<p>Valor de \$z:</p>";
     echo "<pre>\$z = " . htmlspecialchars(print_r($GLOBALS['z'], true)) . "</pre>";
     ?>
+
+    <!-- Ejercicio 5 -->
+    <?php
+    $a = "7 personas";
+    $b = (integer) $a;
+    $a = "9E3";
+    $c = (double) $a;
+    ?>
+
+    
+
 
 
 </body>
