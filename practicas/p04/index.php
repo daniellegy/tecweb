@@ -124,25 +124,45 @@
     $a = "0";
     $b = "TRUE";
     $c = FALSE;
-    $d = ($a OR $b);
-    $e = ($a AND $c);
+    $d = ($a or $b);
+    $e = ($a and $c);
     $f = ($a XOR $b);
     
-    echo "<h4>Valores booleanos:</h4>";
+    echo "<h3>Valores booleanos:</h3>";
     echo "<pre>";
-    var_dump($a, $b, $c, $d, $e, $f);
+    var_dump($a);
+    var_dump($b);
+    var_dump($c);
+    var_dump($d);
+    var_dump($e);
+    var_dump($f);
     echo "</pre>";
+
+    echo "<h3>Transformación de valores booleanos:</h3>";
+    echo "<p>\$c (FALSE) como string: " . (int) $c . "</p>";
+    echo "<p>\$e (FALSE) como string: " . (int) $e . "</p>";
     
-    function boolToText($value) {
+    function boolToString($value)
+    {
         return $value ? 'true' : 'false';
     }
-    
-    echo "<h4>Valores booleanos convertidos para echo:</h4>";
-    echo "d: " . boolToText($d) . "<br>";
-    echo "e: " . boolToText($e) . "<br>";
+
+    echo "<p>\$c (FALSE) como string legible: " . boolToString($c) . "</p>";
+    echo "<p>\$e (FALSE) como string legible: " . boolToString($e) . "</p>";
     ?>
 
+    <h2>Ejercicio 7</h2>
+    <?php
+    echo "<h3>Información del servidor y cliente:</h3>";
 
+    echo "<p>Versión de Apache: " . htmlspecialchars($_SERVER['SERVER_SOFTWARE']) . "</p>";
+    echo "<p>Versión de PHP: " . htmlspecialchars(phpversion()) . "</p>";
+
+    echo "<p>Sistema operativo del servidor: " . htmlspecialchars(php_uname('s')) . "</p>";
+
+    $idioma = $_SERVER['HTTP_ACCEPT_LANGUAGE'] ?? 'No disponible';
+    echo "<p>Idioma del navegador: " . htmlspecialchars($idioma) . "</p>";
+    ?>
 
 </body>
 
