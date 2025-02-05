@@ -94,6 +94,25 @@
     echo "<pre>Array modificado: \$z = " . htmlspecialchars(print_r($z, true)) . "</pre>";
     echo "<pre>Variable referenciada: \$a = " . htmlspecialchars(var_export($a, true)) . " (" . gettype($a) . ")</pre>";
     ?>
+    <h2>Ejercicio 4</h2>
+    <?php
+    echo "<h3>Valores de las variables usando \$GLOBALS:</h3>";
+
+    // Mostrar valores usando $GLOBALS
+    echo "<p>Valor de \$a:</p>";
+    echo "<pre>\$a = " . htmlspecialchars(var_export($GLOBALS['a'], true)) . " (" . gettype($GLOBALS['a']) . ")</pre>";
+
+    echo "<p>Valor de \$b:</p>";
+    echo "<pre>\$b = " . htmlspecialchars(var_export($GLOBALS['b'], true)) . " (" . gettype($GLOBALS['b']) . ")</pre>";
+
+    echo "<p>Valor de \$c:</p>";
+    echo "<pre>\$c = " . htmlspecialchars(var_export($GLOBALS['c'], true)) . " (" . gettype($GLOBALS['c']) . ")</pre>";
+
+    echo "<p>Valor de \$z:</p>";
+    echo "<pre>\$z = " . htmlspecialchars(print_r($GLOBALS['z'], true)) . "</pre>";
+    ?>
+
+
 </body>
 
 </html>
