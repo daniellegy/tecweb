@@ -119,7 +119,28 @@
     $c = (double) $a;
     ?>
 
+    <h2>Ejercicio 6</h2>
+    <?php
+    $a = "0";
+    $b = "TRUE";
+    $c = FALSE;
+    $d = ($a OR $b);
+    $e = ($a AND $c);
+    $f = ($a XOR $b);
     
+    echo "<h4>Valores booleanos:</h4>";
+    echo "<pre>";
+    var_dump($a, $b, $c, $d, $e, $f);
+    echo "</pre>";
+    
+    function boolToText($value) {
+        return $value ? 'true' : 'false';
+    }
+    
+    echo "<h4>Valores booleanos convertidos para echo:</h4>";
+    echo "d: " . boolToText($d) . "<br>";
+    echo "e: " . boolToText($e) . "<br>";
+    ?>
 
 
 
