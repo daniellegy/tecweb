@@ -30,5 +30,33 @@
         echo '<li>$house*5 es inválida porque el símbolo * no está permitido.</li>';
         echo '</ul>';
     ?>
+
+    <h2>Ejercicio 2</h2>
+    <?php
+    $a = "ManejadorSQL";
+    $b = 'MySQL';
+    $c = &$a;
+
+    echo "<h4>Valores iniciales:</h4>";
+    echo "<p>\$a = $a</p>";
+    echo "<p>\$b = $b</p>";
+    echo "<p>\$c = $c</p>";
+
+    $a = "PHP server";
+    $b = &$a;
+
+    echo "<h4>Valores después de las nuevas asignaciones:</h4>";
+    echo "<p>\$a = $a</p>";
+    echo "<p>\$b = $b</p>";
+    echo "<p>\$c = $c</p>";
+
+    echo "<h4>Descripción:</h4>";
+    echo "<p>En el segundo bloque de asignaciones:</p>";
+    echo "<ul>";
+    echo "<li>Se cambió el valor de \$a a 'PHP server'.</li>";
+    echo "<li>Se hizo que \$b sea una referencia a \$a, por lo que \$b también cambió a 'PHP server'.</li>";
+    echo "<li>La variable \$c, que era una referencia a \$a, también refleja el nuevo valor de \$a, que es 'PHP server'.</li>";
+    echo "</ul>";
+    ?>
 </body>
 </html>
