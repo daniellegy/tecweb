@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Consulta Parque Vehicular</title>
+</head>
+<body>
+  <h2>Consulta del Parque Vehicular</h2>
+
+  <form action="ejerc6.php" method="POST">
+    <label for="matricula">Consultar por matrícula:</label>
+    <input type="text" id="matricula" name="matricula" placeholder="Ejemplo: ABC1234" pattern="[A-Z]{3}[0-9]{4}" title="Formato: 3 letras y 4 números" required />
+    <button type="submit">Buscar</button>
+  </form>
+
+  <form action="ejerc6.php" method="POST">
+    <button type="submit" name="mostrar_todo">Mostrar todos los registros</button>
+  </form>
+</body>
+</html>
