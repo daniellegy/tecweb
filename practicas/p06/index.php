@@ -9,7 +9,7 @@
     <h2>Ejercicio 1</h2>
     <p>Escribir programa para comprobar si un número es un múltiplo de 5 y 7</p>
     <?php
-        include("src/funcion1.php");
+        include("src/funciones.php");
         if(isset($_GET['numero']))
         {
             $num = $_GET['numero'];
@@ -19,9 +19,24 @@
 
     <h2>Ejercicio 2</h2>
     <?php
-      include("src/funcion2.php");
       generarSecuenciaImparParImpar();
     ?>
+
+    <h2>Ejercicio 3</h2>
+    <?php
+    if (!isset($_GET['numero']) || !is_numeric($_GET['numero'])) {
+        die("Por favor, proporciona un número válido en la URL, por ejemplo: ?numero=7");
+    }
+    $numeroDado = (int) $_GET['numero'];
+    
+    encontrarMultiploConWhile($numeroDado);
+    ?>
+
+    <h2>Ejercicio 4</h2>
+    <?php
+    tablaABC();
+    ?>
+
 
     <h2>Ejemplo de POST</h2>
     <form action="http://localhost/tecweb/practicas/p04/index.php" method="post">
@@ -38,5 +53,7 @@
             echo $_POST["email"];
         }
     ?>
+
+    
 </body>
 </html>
