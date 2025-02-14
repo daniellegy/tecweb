@@ -1,58 +1,39 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
-"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es">
 <?php
-    header("Content-Type: application/json; charset=utf-8"); 
-    $data = array();
+    header("Content-Type: application/xhtml+xml; charset=utf-8"); 
 
-	if(isset($_GET['tope']))
-    {
-		$tope = $_GET['tope'];
-    }
-    else
-    {
-        die('Parámetro "tope" no detectado...');
+    if (!isset($_GET['tope']) || empty($_GET['tope'])) {
+        die('<p>Parámetro "tope" no detectado o vacío...</p>');
     }
 
-	if (!empty($tope))
-	{
-		/** SE CREA EL OBJETO DE CONEXION */
-		@$link = new mysqli('localhost', 'root', '1234', 'marketzone');
-        /** NOTA: con @ se suprime el Warning para gestionar el error por medio de código */
+    $tope = (int) $_GET['tope'];
+    $data = [];
 
-		/** comprobar la conexión */
-		if ($link->connect_errno) 
-		{
-			die('Falló la conexión: '.$link->connect_error.'<br/>');
-			//exit();
-		}
+    @$link = new mysqli('localhost', 'root', '1234', 'marketzone');
+    if ($link->connect_errno) {
+        die('<p>Falló la conexión: ' . $link->connect_error . '</p>');
+    }
 
-		/** Crear una tabla que no devuelve un conjunto de resultados */
-		if ( $result = $link->query("SELECT * FROM productos WHERE unidades <= $tope") ) 
-		{
-            /** Se extraen las tuplas obtenidas de la consulta */
-			$row = $result->fetch_all(MYSQLI_ASSOC);
+    $stmt = $link->prepare("SELECT * FROM productos WHERE unidades <= ?");
+    $stmt->bind_param("i", $tope);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-            /** Se crea un arreglo con la estructura deseada */
-            foreach($row as $num => $registro) {            // Se recorren tuplas
-                foreach($registro as $key => $value) {      // Se recorren campos
-                    $data[$num][$key] = $value;
-                }
-            }
+    while ($row = $result->fetch_assoc()) {
+        $data[] = $row;
+    }
+    
+    $stmt->close();
+    $link->close();
+?>
 
-			/** útil para liberar memoria asociada a un resultado con demasiada información */
-			$result->free();
-		}
-
-		$link->close();
-	}
-	?>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html charset=UTF-8" />
-		<title>Producto</title>
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-	</head>
-	<body>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Productos</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+</head>
+<body>
     <h3>PRODUCTOS</h3>
     <br />
     <table class="table">
@@ -79,7 +60,7 @@
                     <td><?= htmlspecialchars($producto['precio']) ?></td>
                     <td><?= htmlspecialchars($producto['unidades']) ?></td>
                     <td><?= htmlspecialchars($producto['detalles']) ?></td>
-                    <td><img src="<?= htmlspecialchars($producto['imagen']) ?>" alt="Imagen de <?= htmlspecialchars($producto['nombre']) ?>" width="50" /></td>
+                    <td><img src="<?= htmlspecialchars($producto['imagen']) ?>" alt="Imagen de <?= htmlspecialchars($producto['nombre']) ?>" width="150" /></td>
                 </tr>
             <?php endforeach; ?>
         <?php else : ?>
