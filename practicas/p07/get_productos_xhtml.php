@@ -36,7 +36,7 @@
             /** Se crea un arreglo con la estructura deseada */
             foreach($row as $num => $registro) {            // Se recorren tuplas
                 foreach($registro as $key => $value) {      // Se recorren campos
-                    $data[$num][$key] = utf8_encode($value);
+                    $data[$num][$key] = $value;
                 }
             }
 
@@ -45,9 +45,6 @@
 		}
 
 		$link->close();
-
-        /** Se devuelven los datos en formato JSON */
-        echo json_encode($data, JSON_PRETTY_PRINT);
 	}
 	?>
 	<head>
@@ -56,45 +53,41 @@
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	</head>
 	<body>
-		<h3>PRODUCTO</h3>
-
-		<br/>
-		
-		<?php if( isset($row) ) : ?>
-
-			<table class="table">
-				<thead class="thead-dark">
-					<tr>
-					<th scope="col">#</th>
-					<th scope="col">Nombre</th>
-					<th scope="col">Marca</th>
-					<th scope="col">Modelo</th>
-					<th scope="col">Precio</th>
-					<th scope="col">Unidades</th>
-					<th scope="col">Detalles</th>
-					<th scope="col">Imagen</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<th scope="row"><?= $row['id'] ?></th>
-						<td><?= $row['nombre'] ?></td>
-						<td><?= $row['marca'] ?></td>
-						<td><?= $row['modelo'] ?></td>
-						<td><?= $row['precio'] ?></td>
-						<td><?= $row['unidades'] ?></td>
-						<td><?= $row['detalles'] ?></td>
-						<td><img src=<?= $row['imagen'] ?> ></td>
-					</tr>
-				</tbody>
-			</table>
-
-		<?php elseif(!empty($id)) : ?>
-
-			 <script>
-                alert('El ID del producto no existe');
-             </script>
-
-		<?php endif; ?>
-	</body>
+    <h3>PRODUCTOS</h3>
+    <br />
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Marca</th>
+                <th>Modelo</th>
+                <th>Precio</th>
+                <th>Unidades</th>
+                <th>Detalles</th>
+                <th>Imagen</th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php if (!empty($data)) : ?>
+            <?php foreach ($data as $index => $producto) : ?>
+                <tr>
+                    <td><?= htmlspecialchars($index + 1) ?></td>
+                    <td><?= htmlspecialchars($producto['nombre']) ?></td>
+                    <td><?= htmlspecialchars($producto['marca']) ?></td>
+                    <td><?= htmlspecialchars($producto['modelo']) ?></td>
+                    <td><?= htmlspecialchars($producto['precio']) ?></td>
+                    <td><?= htmlspecialchars($producto['unidades']) ?></td>
+                    <td><?= htmlspecialchars($producto['detalles']) ?></td>
+                    <td><img src="<?= htmlspecialchars($producto['imagen']) ?>" alt="Imagen de <?= htmlspecialchars($producto['nombre']) ?>" width="50" /></td>
+                </tr>
+            <?php endforeach; ?>
+        <?php else : ?>
+            <tr>
+                <td colspan="8">No hay productos con unidades menores o iguales a <?= htmlspecialchars($tope) ?></td>
+            </tr>
+        <?php endif; ?>
+        </tbody>
+    </table>
+</body>
 </html>
